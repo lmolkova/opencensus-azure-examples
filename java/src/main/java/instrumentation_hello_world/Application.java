@@ -28,7 +28,7 @@ public class Application {
         for (String product : azureProducts) {
             try (Scope s = tracer.spanBuilder("incoming request")
                 .setSpanKind(Kind.SERVER).startScopedSpan()) {
-                client.get2("/product-categories/" + product);
+                client.get3("/product-categories/" + product);
             }
         }
 

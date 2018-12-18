@@ -23,6 +23,7 @@ public class SampleAzureClient {
     private final OkHttpClient httpClient;
     private final String endpoint;
     private static final Tracer tracer = Tracing.getTracer();
+    private static final TraceContextExecutor traceContextExecutor = new TraceContextExecutor();
 
     public SampleAzureClient(String endpoint) {
 
@@ -112,6 +113,30 @@ public class SampleAzureClient {
         }
         return null;
     }
+
+  // this is an example of asynchronous operation that gets data from the service -
+  // it just wraps synchronous get1
+  // it demonstrates how to propagate current span (and trace context) in-process through async calls
+  // via custom Executor
+  public String get3(String path) {
+    CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+      return this.get1(path);
+    },
+        // this time we don't explicitly propagate current span
+        // but we use custom executor that does it for us
+        traceContextExecutor);
+
+    try {
+      return future.get();
+    } catch (InterruptedException ie) {
+      ie.printStackTrace();
+      // process exception
+    } catch (ExecutionException ee) {
+      ee.printStackTrace();
+      // process exception
+    }
+    return null;
+  }
 
     // execute request with retries, etc...
     private Response doInternal(String path) throws IOException {
