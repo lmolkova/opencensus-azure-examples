@@ -6,9 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OpenCensus.Collector.Dependencies\OpenCensus.Collector.Dependencies.csproj" />
-    <ProjectReference Include="..\OpenCensus.Exporter.Ocagent\OpenCensus.Exporter.Ocagent.csproj" />
-    <ProjectReference Include="..\OpenCensus\OpenCensus.csproj" />
+    <PackageReference Include="OpenCensus" Version="0.1.0-alpha-33381" />
+    <PackageReference Include="OpenCensus.Abstractions" Version="0.1.0-alpha-33381" />
+    <PackageReference Include="OpenCensus.Collector.Dependencies" Version="0.1.0-alpha-33381" />
+    <PackageReference Include="OpenCensus.Exporter.Ocagent" Version="0.1.0-alpha-33381" />
   </ItemGroup>
 
 </Project>
