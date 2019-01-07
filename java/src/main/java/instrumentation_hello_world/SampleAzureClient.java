@@ -75,7 +75,7 @@ public class SampleAzureClient {
 
                 // set status of the span - you can use opencensus helpers, or write your own using
                 // this helper as reference
-                HttpTraceUtil.parseResponseStatus(response != null ? response.code() : 0, error);
+                currentSpan.Status = HttpTraceUtil.parseResponseStatus(response != null ? response.code() : 0, error);
             }
             return result;
         }
