@@ -2,7 +2,6 @@ package instrumentation_hello_world;
 
 import io.opencensus.common.Scope;
 import io.opencensus.exporter.trace.zipkin.ZipkinTraceExporter;
-import io.opencensus.trace.Span;
 import io.opencensus.trace.Span.Kind;
 import io.opencensus.trace.Tracer;
 import io.opencensus.trace.Tracing;

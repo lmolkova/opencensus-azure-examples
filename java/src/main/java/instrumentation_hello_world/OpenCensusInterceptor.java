@@ -2,10 +2,7 @@ package instrumentation_hello_world;
 
 import java.io.IOException;
 
-import javax.annotation.Nullable;
-
 import io.opencensus.common.Scope;
-import io.opencensus.contrib.http.util.HttpTraceUtil;
 import io.opencensus.trace.AttributeValue;
 import io.opencensus.trace.Span;
 import io.opencensus.trace.Tracer;
@@ -61,7 +58,7 @@ class OpenCensusInterceptor implements Interceptor {
     }
   }
 
-  void spanEnd(Span span, @Nullable Response response, @Nullable Throwable error) {
+  void spanEnd(Span span, Response response, Throwable error) {
     int statusCode = response == null ? 0 : response.code();
     if (span.getOptions().contains(Options.RECORD_EVENTS)) {
       span.putAttribute(HTTP_STATUS_CODE, AttributeValue.longAttributeValue(statusCode));
@@ -86,7 +83,7 @@ class OpenCensusInterceptor implements Interceptor {
     putAttributeIfNotEmptyOrNull(span, HTTP_URL, request.url().toString());
   }
 
-  private static void putAttributeIfNotEmptyOrNull(Span span, String key, @Nullable String value) {
+  private static void putAttributeIfNotEmptyOrNull(Span span, String key, String value) {
     if (value != null && !value.isEmpty()) {
       span.putAttribute(key, AttributeValue.stringAttributeValue(value));
     }

@@ -1,7 +1,6 @@
 package instrumentation_hello_world;
 
 import io.opencensus.common.Scope;
-import io.opencensus.contrib.http.util.HttpTraceUtil;
 import io.opencensus.trace.AttributeValue;
 import io.opencensus.trace.Span;
 import io.opencensus.trace.Tracer;
@@ -75,7 +74,7 @@ public class SampleAzureClient {
 
                 // set status of the span - you can use opencensus helpers, or write your own using
                 // this helper as reference
-                currentSpan.Status = HttpTraceUtil.parseResponseStatus(response != null ? response.code() : 0, error);
+                currentSpan.setStatus(HttpTraceUtil.parseResponseStatus(response != null ? response.code() : 0, error));
             }
             return result;
         }
